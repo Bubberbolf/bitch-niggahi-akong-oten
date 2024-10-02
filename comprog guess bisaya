@@ -1,0 +1,69 @@
+import java.util.Scanner;
+
+public class test {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] dali = { "ming ming", "iro", "adlaw", "chinita", "vape" };         
+        String[] dikaayolisod = { "electricfan", "bisakol", "vespo", "kristoff", "tikalon" }; 
+        String[] lisod = { "mobile app and web development", "pisowifi", "sox gamezone", "eugene", "vincent", "alfred" }; 
+        String word2Guess = "";
+        int attempts = 0;
+
+        System.out.println("Choose difficulty: dali, dikaayolisod, lisod");
+        String difficulty = scanner.next().toLowerCase();
+
+        if (difficulty.equals("dali")) {
+            word2Guess = dali[(int) (Math.random() * dali.length)];
+            attempts = 6;
+        } else if (difficulty.equals("dikaayolisod")) {
+            word2Guess = dikaayolisod[(int) (Math.random() * dikaayolisod.length)];
+            attempts = 4;
+        } else if (difficulty.equals("lisod")) {
+            word2Guess = lisod[(int) (Math.random() * lisod.length)];
+            attempts = 2;
+        } else {
+            System.out.println("unsa diay ka? dili ka different bai, adto nalang sa dali oy");
+            word2Guess = dali[(int) (Math.random() * dali.length)];
+            attempts = 6;
+        }
+
+        int length = word2Guess.length();
+        String hiddenWord = "_".repeat(length);
+        boolean isWin = false;
+
+        System.out.println("GUESS THE BISAYA WORD BISAKOL EDITION LIMITED EDITION CHRISTMAS EDITION");
+
+        while (attempts > 0 && !isWin) {
+            System.out.println("Guesses left: " + attempts);
+            System.out.println("Guess: " + hiddenWord);
+            char guess = scanner.next().charAt(0);
+
+                // method
+            if (word2Guess.indexOf(guess) >= 0) {
+                StringBuilder updatedWord = new StringBuilder(hiddenWord);
+                for (int i = 0; i < word2Guess.length(); i++) {
+                    if (word2Guess.charAt(i) == guess) {
+                        updatedWord.setCharAt(i, guess);
+                    }
+                }
+                hiddenWord = updatedWord.toString();
+                System.out.println("TAMA!!");
+
+                if (!hiddenWord.contains("_")) {
+                    isWin = true;
+                    System.out.println("NADAOG KA BAI!!");
+                }
+            } else {
+                attempts--;
+                System.out.println("mali ka choy ayay");
+            }
+        }
+        if (isWin) {
+            System.out.println("ang word kay: " + word2Guess);
+        } else {
+            System.out.println("o bolok ang word diay kay " + word2Guess);
+        }
+
+        scanner.close();
+    }
+}
